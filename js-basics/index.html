@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 基础知识练习</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            color: #764ba2;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 24px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            border-radius: 3px;
+        }
+
+        .card > p {
+            color: #555;
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        code {
+            background: #f0e6ff;
+            color: #5a189a;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.35);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .output {
+            background: #1e1e2e;
+            color: #a6e3a1;
+            padding: 16px;
+            border-radius: 12px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            min-height: 60px;
+            border: 1px solid #313244;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .output::before {
+            content: '输出结果';
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.7rem;
+            color: #6c7086;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .output.empty {
+            color: #6c7086;
+        }
+
+        footer {
+            text-align: center;
+            color: rgba(255,255,255,0.8);
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JavaScript 基础知识练习</h1>
+            <p>打开浏览器控制台（F12），结合页面输出学习变量、类型、表达式、流程控制与函数</p>
+        </header>
+
+        <div class="card">
+            <h2>1. 变量的定义</h2>
+            <p>练习 <code>var</code>、<code>let</code>、<code>const</code> 的声明方式与作用域差异。</p>
+            <div class="btn-group">
+                <button onclick="practiceVariables()">▶ 运行变量练习</button>
+            </div>
+            <div class="output empty" id="output-variables">点击上方按钮查看运行结果...</div>
+        </div>
+
+        <div class="card">
+            <h2>2. 变量类型</h2>
+            <p>使用 <code>typeof</code> 操作符识别 JavaScript 中的各种数据类型。</p>
+            <div class="btn-group">
+                <button onclick="practiceTypes()">▶ 运行类型练习</button>
+            </div>
+            <div class="output empty" id="output-types">点击上方按钮查看运行结果...</div>
+        </div>
+
+        <div class="card">
+            <h2>3. 表达式</h2>
+            <p>练习算术表达式、比较表达式和逻辑表达式。</p>
+            <div class="btn-group">
+                <button onclick="practiceExpressions()">▶ 运行表达式练习</button>
+            </div>
+            <div class="output empty" id="output-expressions">点击上方按钮查看运行结果...</div>
+        </div>
+
+        <div class="card">
+            <h2>4. 流程控制</h2>
+            <p>练习 <code>if/else</code> 条件判断、<code>for</code> 循环与 <code>while</code> 循环。</p>
+            <div class="btn-group">
+                <button onclick="practiceControlFlow()">▶ 运行流程控制练习</button>
+            </div>
+            <div class="output empty" id="output-control">点击上方按钮查看运行结果...</div>
+        </div>
+
+        <div class="card">
+            <h2>5. 函数</h2>
+            <p>练习函数声明、函数表达式、箭头函数以及回调函数。</p>
+            <div class="btn-group">
+                <button onclick="practiceFunctions()">▶ 运行函数练习</button>
+            </div>
+            <div class="output empty" id="output-functions">点击上方按钮查看运行结果...</div>
+        </div>
+
+        <footer>
+            <p>© JavaScript Basics Practice | 所有作业统一推送到 GitHub 仓库</p>
+        </footer>
+    </div>
+
+    <script>
+        // ====================
+        // 1. 变量的定义
+        // ====================
+        function practiceVariables() {
+            console.log("=== 变量定义练习 ===");
+            let output = "";
+
+            var a = 10;
+            var a = 20; // var 允许重复声明
+            output += `var a = ${a}\n`;
+            console.log("var a:", a);
+
+            let b = 30;
+            b = 40;
+            output += `let b = ${b}\n`;
+            console.log("let b:", b);
+
+            const c = 50;
+            output += `const c = ${c}\n`;
+            console.log("const c:", c);
+
+            if (true) {
+                var x = "var 在块级外可访问";
+                let y = "let 只在块级内可访问";
+                const z = "const 只在块级内可访问";
+                console.log(y);
+                console.log(z);
+            }
+            output += `if 块外访问 var x: ${x}\n`;
+            console.log("if 块外访问 var x:", x);
+
+            const el = document.getElementById("output-variables");
+            el.textContent = output;
+            el.classList.remove("empty");
+        }
+
+        // ====================
+        // 2. 变量类型
+        // ====================
+        function practiceTypes() {
+            console.log("=== 变量类型练习 ===");
+            let output = "";
+
+            const values = [
+                42,
+                3.14,
+                "Hello JS",
+                true,
+                undefined,
+                null,
+                { name: "Alice" },
+                [1, 2, 3],
+                function() {}
+            ];
+
+            values.forEach(function(val) {
+                const typeStr = typeof val;
+                const line = `值: ${String(val)}  =>  类型: ${typeStr}`;
+                output += line + "\n";
+                console.log(line);
+            });
+
+            const el = document.getElementById("output-types");
+            el.textContent = output;
+            el.classList.remove("empty");
+        }
+
+        // ====================
+        // 3. 表达式
+        // ====================
+        function practiceExpressions() {
+            console.log("=== 表达式练习 ===");
+            let output = "";
+
+            let sum = 10 + 5;
+            let diff = 10 - 5;
+            let product = 10 * 5;
+            let quotient = 10 / 3;
+            let remainder = 10 % 3;
+            let power = 2 ** 4;
+
+            output += `算术: 10+5=${sum}, 10-5=${diff}, 10*5=${product}, 10/3=${quotient.toFixed(2)}, 10%3=${remainder}, 2**4=${power}\n`;
+            console.log("算术表达式:", sum, diff, product, quotient, remainder, power);
+
+            let eq = 5 == "5";
+            let seq = 5 === "5";
+            let gt = 10 > 3;
+            let lte = 10 <= 3;
+
+            output += `比较: 5=="5"=${eq}, 5==="5"=${seq}, 10>3=${gt}, 10<=3=${lte}\n`;
+            console.log("比较表达式:", eq, seq, gt, lte);
+
+            let andResult = (true && false);
+            let orResult = (true || false);
+            let notResult = !true;
+
+            output += `逻辑: true&&false=${andResult}, true||false=${orResult}, !true=${notResult}\n`;
+            console.log("逻辑表达式:", andResult, orResult, notResult);
+
+            const el = document.getElementById("output-expressions");
+            el.textContent = output;
+            el.classList.remove("empty");
+        }
+
+        // ====================
+        // 4. 流程控制
+        // ====================
+        function practiceControlFlow() {
+            console.log("=== 流程控制练习 ===");
+            let output = "";
+
+            let score = 85;
+            let grade;
+            if (score >= 90) {
+                grade = "A（优秀）";
+            } else if (score >= 80) {
+                grade = "B（良好）";
+            } else if (score >= 60) {
+                grade = "C（及格）";
+            } else {
+                grade = "D（不及格）";
+            }
+            output += `成绩: ${score}  =>  等级: ${grade}\n`;
+            console.log(`成绩 ${score} 的等级是 ${grade}`);
+
+            let factorial = 1;
+            let forDetails = "";
+            for (let i = 1; i <= 5; i++) {
+                factorial *= i;
+                forDetails += `${i} `;
+            }
+            output += `for 循环 (1~5): ${forDetails.trim()} => 阶乘结果: ${factorial}\n`;
+            console.log("for 循环阶乘:", factorial);
+
+            let sum = 0;
+            let n = 1;
+            let whileDetails = "";
+            while (sum < 10) {
+                sum += n;
+                whileDetails += `+${n} `;
+                n++;
+            }
+            output += `while 循环: ${whileDetails.trim()} = ${sum}\n`;
+            console.log("while 循环累加:", sum);
+
+            const el = document.getElementById("output-control");
+            el.textContent = output;
+            el.classList.remove("empty");
+        }
+
+        // ====================
+        // 5. 函数
+        // ====================
+        function practiceFunctions() {
+            console.log("=== 函数练习 ===");
+            let output = "";
+
+            function add(a, b) {
+                return a + b;
+            }
+            let r1 = add(3, 4);
+            output += `函数声明 add(3,4) = ${r1}\n`;
+            console.log("函数声明:", r1);
+
+            const multiply = function(a, b) {
+                return a * b;
+            };
+            let r2 = multiply(5, 6);
+            output += `函数表达式 multiply(5,6) = ${r2}\n`;
+            console.log("函数表达式:", r2);
+
+            const divide = (a, b) => a / b;
+            let r3 = divide(20, 4);
+            output += `箭头函数 divide(20,4) = ${r3}\n`;
+            console.log("箭头函数:", r3);
+
+            function operate(a, b, callback) {
+                return callback(a, b);
+            }
+            let r4 = operate(10, 3, (x, y) => x - y);
+            output += `回调函数 operate(10,3,减法) = ${r4}\n`;
+            console.log("回调函数:", r4);
+
+            const el = document.getElementById("output-functions");
+            el.textContent = output;
+            el.classList.remove("empty");
+        }
+    </script>
+</body>
+</html>
