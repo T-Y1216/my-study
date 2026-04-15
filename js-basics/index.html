@@ -2,480 +2,178 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript 基础知识练习</title>
+    <title>JavaScript 基础练习</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', 'Microsoft YaHei', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            line-height: 1.8;
             color: #333;
         }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        header {
+        h1 {
             text-align: center;
-            margin-bottom: 40px;
-            color: white;
+            color: #2c3e50;
         }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        h2 {
+            color: #2980b9;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 6px;
+            margin-top: 30px;
         }
-
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            padding: 28px;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.2);
-        }
-
-        .card h2 {
-            color: #764ba2;
-            font-size: 1.4rem;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card h2::before {
-            content: '';
-            display: inline-block;
-            width: 6px;
-            height: 24px;
-            background: linear-gradient(180deg, #667eea, #764ba2);
-            border-radius: 3px;
-        }
-
-        .card > p {
-            color: #555;
-            margin-bottom: 16px;
-            line-height: 1.7;
-        }
-
-        .code-block {
-            background: #1e1e2e;
-            color: #cdd6f4;
-            padding: 18px 20px;
-            border-radius: 12px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 0.9rem;
-            line-height: 1.7;
-            overflow-x: auto;
-            margin-bottom: 16px;
-            border: 1px solid #313244;
-        }
-
-        .code-block .kw { color: #cba6f7; }   /* keyword */
-        .code-block .str { color: #a6e3a1; }  /* string */
-        .code-block .num { color: #fab387; }  /* number */
-        .code-block .cm { color: #6c7086; font-style: italic; } /* comment */
-        .code-block .fn { color: #89b4fa; }   /* function */
-        .code-block .op { color: #f38ba8; }   /* operator */
-
         pre {
-            margin: 0;
-            white-space: pre-wrap;
-            word-wrap: break-word;
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #2980b9;
+            border-radius: 4px;
+            overflow-x: auto;
         }
-
-        .output {
-            background: #313244;
-            color: #a6e3a1;
-            padding: 14px 18px;
-            border-radius: 10px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 0.9rem;
-            white-space: pre-wrap;
-            line-height: 1.6;
-            min-height: 50px;
-            border-left: 4px solid #a6e3a1;
-        }
-
-        .output-label {
-            font-size: 0.8rem;
-            color: #764ba2;
-            font-weight: 600;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        footer {
-            text-align: center;
-            color: rgba(255,255,255,0.8);
-            margin-top: 20px;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 1.8rem;
-            }
-            .card {
-                padding: 20px;
-            }
+        .result {
+            background: #e8f6f3;
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            color: #1e8449;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>JavaScript 基础知识练习</h1>
-            <p>手写的 JS 代码与运行结果展示 — 请同时打开浏览器控制台（F12）查看输出</p>
-        </header>
+    <h1>JavaScript 基础知识练习</h1>
 
-        <!-- 1. 变量的定义 -->
-        <div class="card">
-            <h2>1. 变量的定义</h2>
-            <p>练习 <code>var</code>、<code>let</code>、<code>const</code> 的声明方式与作用域差异。</p>
+    <h2>1. 变量的定义</h2>
+    <div class="result" id="r1"></div>
 
-            <div class="code-block">
-<pre><span class="cm">// 变量的定义</span>
-<span class="kw">var</span> a <span class="op">=</span> <span class="num">10</span>;
-<span class="kw">var</span> a <span class="op">=</span> <span class="num">20</span>;          <span class="cm">// var 允许重复声明</span>
-console.<span class="fn">log</span>(<span class="str">"var a:"</span>, a);
+    <h2>2. 变量类型</h2>
+    <div class="result" id="r2"></div>
 
-<span class="kw">let</span> b <span class="op">=</span> <span class="num">30</span>;
-b <span class="op">=</span> <span class="num">40</span>;              <span class="cm">// let 允许重新赋值，但不允许重复声明</span>
-console.<span class="fn">log</span>(<span class="str">"let b:"</span>, b);
+    <h2>3. 表达式</h2>
+    <div class="result" id="r3"></div>
 
-<span class="kw">const</span> c <span class="op">=</span> <span class="num">50</span>;        <span class="cm">// const 声明常量，必须初始化</span>
-console.<span class="fn">log</span>(<span class="str">"const c:"</span>, c);
+    <h2>4. 流程控制</h2>
+    <div class="result" id="r4"></div>
 
-<span class="kw">if</span> (<span class="kw">true</span>) {
-    <span class="kw">var</span> x <span class="op">=</span> <span class="str">"var 在块级外可访问"</span>;
-    <span class="kw">let</span> y <span class="op">=</span> <span class="str">"let 只在块级内可访问"</span>;
-    <span class="kw">const</span> z <span class="op">=</span> <span class="str">"const 只在块级内可访问"</span>;
-    console.<span class="fn">log</span>(y);
-    console.<span class="fn">log</span>(z);
-}
-console.<span class="fn">log</span>(<span class="str">"if 块外访问 var x:"</span>, x);</pre>
-            </div>
-
-            <div class="output-label">▶ 运行结果</div>
-            <div class="output" id="output-variables"></div>
-        </div>
-
-        <!-- 2. 变量类型 -->
-        <div class="card">
-            <h2>2. 变量类型</h2>
-            <p>使用 <code>typeof</code> 操作符识别 JavaScript 中的各种数据类型。</p>
-
-            <div class="code-block">
-<pre><span class="cm">// 变量类型</span>
-<span class="kw">var</span> num <span class="op">=</span> <span class="num">42</span>;
-<span class="kw">var</span> pi <span class="op">=</span> <span class="num">3.14</span>;
-<span class="kw">var</span> str <span class="op">=</span> <span class="str">"Hello JS"</span>;
-<span class="kw">var</span> flag <span class="op">=</span> <span class="kw">true</span>;
-<span class="kw">var</span> undef;
-<span class="kw">var</span> empty <span class="op">=</span> <span class="kw">null</span>;
-<span class="kw">var</span> obj <span class="op">=</span> { name: <span class="str">"Alice"</span> };
-<span class="kw">var</span> arr <span class="op">=</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
-<span class="kw">var</span> fn <span class="op">=</span> <span class="kw">function</span>() {};
-
-console.<span class="fn">log</span>(<span class="str">"typeof num:"</span>, <span class="kw">typeof</span> num);
-console.<span class="fn">log</span>(<span class="str">"typeof pi:"</span>, <span class="kw">typeof</span> pi);
-console.<span class="fn">log</span>(<span class="str">"typeof str:"</span>, <span class="kw">typeof</span> str);
-console.<span class="fn">log</span>(<span class="str">"typeof flag:"</span>, <span class="kw">typeof</span> flag);
-console.<span class="fn">log</span>(<span class="str">"typeof undef:"</span>, <span class="kw">typeof</span> undef);
-console.<span class="fn">log</span>(<span class="str">"typeof empty:"</span>, <span class="kw">typeof</span> empty);
-console.<span class="fn">log</span>(<span class="str">"typeof obj:"</span>, <span class="kw">typeof</span> obj);
-console.<span class="fn">log</span>(<span class="str">"typeof arr:"</span>, <span class="kw">typeof</span> arr);
-console.<span class="fn">log</span>(<span class="str">"typeof fn:"</span>, <span class="kw">typeof</span> fn);</pre>
-            </div>
-
-            <div class="output-label">▶ 运行结果</div>
-            <div class="output" id="output-types"></div>
-        </div>
-
-        <!-- 3. 表达式 -->
-        <div class="card">
-            <h2>3. 表达式</h2>
-            <p>练习算术表达式、比较表达式和逻辑表达式。</p>
-
-            <div class="code-block">
-<pre><span class="cm">// 表达式</span>
-<span class="cm">// 算术表达式</span>
-<span class="kw">var</span> sum <span class="op">=</span> <span class="num">10</span> <span class="op">+</span> <span class="num">5</span>;
-<span class="kw">var</span> diff <span class="op">=</span> <span class="num">10</span> <span class="op">-</span> <span class="num">5</span>;
-<span class="kw">var</span> product <span class="op">=</span> <span class="num">10</span> <span class="op">*</span> <span class="num">5</span>;
-<span class="kw">var</span> quotient <span class="op">=</span> <span class="num">10</span> <span class="op">/</span> <span class="num">3</span>;
-<span class="kw">var</span> remainder <span class="op">=</span> <span class="num">10</span> <span class="op">%</span> <span class="num">3</span>;
-<span class="kw">var</span> power <span class="op">=</span> <span class="num">2</span> <span class="op">**</span> <span class="num">4</span>;
-
-console.<span class="fn">log</span>(<span class="str">"算术:"</span>, sum, diff, product, quotient, remainder, power);
-
-<span class="cm">// 比较表达式</span>
-console.<span class="fn">log</span>(<span class="num">5</span> <span class="op">==</span> <span class="str">"5"</span>);   <span class="cm">// true，值相等</span>
-console.<span class="fn">log</span>(<span class="num">5</span> <span class="op">===</span> <span class="str">"5"</span>); <span class="cm">// false，类型不同</span>
-console.<span class="fn">log</span>(<span class="num">10</span> <span class="op">></span> <span class="num">3</span>);
-console.<span class="fn">log</span>(<span class="num">10</span> <span class="op"><=</span> <span class="num">3</span>);
-
-<span class="cm">// 逻辑表达式</span>
-console.<span class="fn">log</span>(<span class="kw">true</span> <span class="op">&&</span> <span class="kw">false</span>);
-console.<span class="fn">log</span>(<span class="kw">true</span> <span class="op">||</span> <span class="kw">false</span>);
-console.<span class="fn">log</span>(<span class="op">!</span><span class="kw">true</span>);</pre>
-            </div>
-
-            <div class="output-label">▶ 运行结果</div>
-            <div class="output" id="output-expressions"></div>
-        </div>
-
-        <!-- 4. 流程控制 -->
-        <div class="card">
-            <h2>4. 流程控制</h2>
-            <p>练习 <code>if/else</code> 条件判断、<code>for</code> 循环与 <code>while</code> 循环。</p>
-
-            <div class="code-block">
-<pre><span class="cm">// 流程控制</span>
-<span class="cm">// if/else 条件判断</span>
-<span class="kw">var</span> score <span class="op">=</span> <span class="num">85</span>;
-<span class="kw">var</span> grade;
-
-<span class="kw">if</span> (score <span class="op">>=</span> <span class="num">90</span>) {
-    grade <span class="op">=</span> <span class="str">"A（优秀）"</span>;
-} <span class="kw">else if</span> (score <span class="op">>=</span> <span class="num">80</span>) {
-    grade <span class="op">=</span> <span class="str">"B（良好）"</span>;
-} <span class="kw">else if</span> (score <span class="op">>=</span> <span class="num">60</span>) {
-    grade <span class="op">=</span> <span class="str">"C（及格）"</span>;
-} <span class="kw">else</span> {
-    grade <span class="op">=</span> <span class="str">"D（不及格）"</span>;
-}
-console.<span class="fn">log</span>(<span class="str">"成绩等级:"</span>, grade);
-
-<span class="cm">// for 循环：1到5的阶乘</span>
-<span class="kw">var</span> factorial <span class="op">=</span> <span class="num">1</span>;
-<span class="kw">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="num">1</span>; i <span class="op"><=</span> <span class="num">5</span>; i<span class="op">++</span>) {
-    factorial <span class="op">*=</span> i;
-}
-console.<span class="fn">log</span>(<span class="str">"for 循环阶乘(1~5):"</span>, factorial);
-
-<span class="cm">// while 循环：累加到不小于10</span>
-<span class="kw">var</span> sum <span class="op">=</span> <span class="num">0</span>;
-<span class="kw">var</span> n <span class="op">=</span> <span class="num">1</span>;
-<span class="kw">while</span> (sum <span class="op"><</span> <span class="num">10</span>) {
-    sum <span class="op">+=</span> n;
-    n<span class="op">++</span>;
-}
-console.<span class="fn">log</span>(<span class="str">"while 循环累加结果:"</span>, sum);</pre>
-            </div>
-
-            <div class="output-label">▶ 运行结果</div>
-            <div class="output" id="output-control"></div>
-        </div>
-
-        <!-- 5. 函数 -->
-        <div class="card">
-            <h2>5. 函数</h2>
-            <p>练习函数声明、函数表达式、箭头函数以及回调函数。</p>
-
-            <div class="code-block">
-<pre><span class="cm">// 函数</span>
-<span class="cm">// 函数声明</span>
-<span class="kw">function</span> <span class="fn">add</span>(a, b) {
-    <span class="kw">return</span> a <span class="op">+</span> b;
-}
-console.<span class="fn">log</span>(<span class="str">"函数声明 add(3,4):"</span>, add(<span class="num">3</span>, <span class="num">4</span>));
-
-<span class="cm">// 函数表达式</span>
-<span class="kw">var</span> multiply <span class="op">=</span> <span class="kw">function</span>(a, b) {
-    <span class="kw">return</span> a <span class="op">*</span> b;
-};
-console.<span class="fn">log</span>(<span class="str">"函数表达式 multiply(5,6):"</span>, multiply(<span class="num">5</span>, <span class="num">6</span>));
-
-<span class="cm">// 箭头函数</span>
-<span class="kw">var</span> divide <span class="op">=</span> (a, b) <span class="op">=></span> a <span class="op">/</span> b;
-console.<span class="fn">log</span>(<span class="str">"箭头函数 divide(20,4):"</span>, divide(<span class="num">20</span>, <span class="num">4</span>));
-
-<span class="cm">// 回调函数</span>
-<span class="kw">function</span> <span class="fn">operate</span>(a, b, callback) {
-    <span class="kw">return</span> callback(a, b);
-}
-<span class="kw">var</span> result <span class="op">=</span> operate(<span class="num">10</span>, <span class="num">3</span>, <span class="kw">function</span>(x, y) {
-    <span class="kw">return</span> x <span class="op">-</span> y;
-});
-console.<span class="fn">log</span>(<span class="str">"回调函数 operate(10,3,减法):"</span>, result);</pre>
-            </div>
-
-            <div class="output-label">▶ 运行结果</div>
-            <div class="output" id="output-functions"></div>
-        </div>
-
-        <footer>
-            <p>© JavaScript Basics Practice | 所有作业统一推送到 GitHub 仓库</p>
-        </footer>
-    </div>
+    <h2>5. 函数</h2>
+    <div class="result" id="r5"></div>
 
     <script>
         // ====================
-        // 页面加载时自动执行所有练习
+        // 1. 变量的定义
         // ====================
-        (function() {
-            // 1. 变量的定义
-            var output1 = "";
-            var a = 10;
-            var a = 20;
-            output1 += "var a = " + a + "\n";
-            console.log("var a:", a);
+        var name = "张三";
+        let age = 20;
+        const pi = 3.14159;
 
-            let b = 30;
-            b = 40;
-            output1 += "let b = " + b + "\n";
-            console.log("let b:", b);
+        var msg1 = "姓名: " + name + "<br>";
+        msg1 += "年龄: " + age + "<br>";
+        msg1 += "圆周率: " + pi;
+        document.getElementById("r1").innerHTML = msg1;
+        console.log("变量定义:", name, age, pi);
 
-            const c = 50;
-            output1 += "const c = " + c + "\n";
-            console.log("const c:", c);
+        // ====================
+        // 2. 变量类型
+        // ====================
+        var num = 100;
+        var str = "Hello";
+        var bool = true;
+        var obj = { x: 1, y: 2 };
+        var arr = [1, 2, 3];
+        var und;
+        var nul = null;
+        var fn = function() {};
 
-            if (true) {
-                var x = "var 在块级外可访问";
-                let y = "let 只在块级内可访问";
-                const z = "const 只在块级内可访问";
-                console.log(y);
-                console.log(z);
-            }
-            output1 += "if 块外访问 var x: " + x + "\n";
-            console.log("if 块外访问 var x:", x);
-            document.getElementById("output-variables").textContent = output1;
+        var msg2 = "";
+        msg2 += "num 的类型: " + typeof num + "<br>";
+        msg2 += "str 的类型: " + typeof str + "<br>";
+        msg2 += "bool 的类型: " + typeof bool + "<br>";
+        msg2 += "obj 的类型: " + typeof obj + "<br>";
+        msg2 += "arr 的类型: " + typeof arr + "<br>";
+        msg2 += "und 的类型: " + typeof und + "<br>";
+        msg2 += "nul 的类型: " + typeof nul + "<br>";
+        msg2 += "fn 的类型: " + typeof fn;
+        document.getElementById("r2").innerHTML = msg2;
+        console.log("变量类型:", typeof num, typeof str, typeof bool, typeof obj, typeof arr, typeof und, typeof nul, typeof fn);
 
-            // 2. 变量类型
-            var output2 = "";
-            var values = [
-                { name: "num", val: 42 },
-                { name: "pi", val: 3.14 },
-                { name: "str", val: "Hello JS" },
-                { name: "flag", val: true },
-                { name: "undef", val: undefined },
-                { name: "empty", val: null },
-                { name: "obj", val: { name: "Alice" } },
-                { name: "arr", val: [1, 2, 3] },
-                { name: "fn", val: function() {} }
-            ];
-            for (var i = 0; i < values.length; i++) {
-                var item = values[i];
-                var line = "typeof " + item.name + ": " + typeof item.val;
-                output2 += line + "\n";
-                console.log(line);
-            }
-            document.getElementById("output-types").textContent = output2;
+        // ====================
+        // 3. 表达式
+        // ====================
+        var a = 10, b = 3;
+        var sum = a + b;
+        var diff = a - b;
+        var prod = a * b;
+        var quot = a / b;
+        var rem = a % b;
 
-            // 3. 表达式
-            var output3 = "";
-            var sum = 10 + 5;
-            var diff = 10 - 5;
-            var product = 10 * 5;
-            var quotient = 10 / 3;
-            var remainder = 10 % 3;
-            var power = 2 ** 4;
-            output3 += "算术: 10+5=" + sum + ", 10-5=" + diff + ", 10*5=" + product + ", 10/3=" + quotient.toFixed(2) + ", 10%3=" + remainder + ", 2**4=" + power + "\n";
-            console.log("算术表达式:", sum, diff, product, quotient, remainder, power);
+        var eq1 = (a == "10");
+        var eq2 = (a === "10");
+        var gt = (a > b);
 
-            var eq = 5 == "5";
-            var seq = 5 === "5";
-            var gt = 10 > 3;
-            var lte = 10 <= 3;
-            output3 += "比较: 5==\"5\"=" + eq + ", 5===\"5\"=" + seq + ", 10>3=" + gt + ", 10<=3=" + lte + "\n";
-            console.log("比较表达式:", eq, seq, gt, lte);
+        var logic1 = (true && false);
+        var logic2 = (true || false);
+        var logic3 = !true;
 
-            var andResult = (true && false);
-            var orResult = (true || false);
-            var notResult = !true;
-            output3 += "逻辑: true&&false=" + andResult + ", true||false=" + orResult + ", !true=" + notResult + "\n";
-            console.log("逻辑表达式:", andResult, orResult, notResult);
-            document.getElementById("output-expressions").textContent = output3;
+        var msg3 = "";
+        msg3 += "算术: " + a + "+" + b + "=" + sum + ", " + a + "-" + b + "=" + diff + ", " + a + "*" + b + "=" + prod + ", " + a + "/" + b + "=" + quot.toFixed(2) + ", " + a + "%" + b + "=" + rem + "<br>";
+        msg3 += "比较: " + a + "==\"10\"=" + eq1 + ", " + a + "===\"10\"=" + eq2 + ", " + a + ">" + b + "=" + gt + "<br>";
+        msg3 += "逻辑: true&&false=" + logic1 + ", true||false=" + logic2 + ", !true=" + logic3;
+        document.getElementById("r3").innerHTML = msg3;
+        console.log("表达式:", sum, diff, prod, quot, rem, eq1, eq2, gt, logic1, logic2, logic3);
 
-            // 4. 流程控制
-            var output4 = "";
-            var score = 85;
-            var grade;
-            if (score >= 90) {
-                grade = "A（优秀）";
-            } else if (score >= 80) {
-                grade = "B（良好）";
-            } else if (score >= 60) {
-                grade = "C（及格）";
-            } else {
-                grade = "D（不及格）";
-            }
-            output4 += "成绩: " + score + " => 等级: " + grade + "\n";
-            console.log("成绩等级:", grade);
+        // ====================
+        // 4. 流程控制
+        // ====================
+        var score = 85;
+        var level = "";
 
-            var factorial = 1;
-            for (var j = 1; j <= 5; j++) {
-                factorial *= j;
-            }
-            output4 += "for 循环阶乘(1~5): " + factorial + "\n";
-            console.log("for 循环阶乘:", factorial);
+        if (score >= 90) {
+            level = "优秀";
+        } else if (score >= 80) {
+            level = "良好";
+        } else if (score >= 60) {
+            level = "及格";
+        } else {
+            level = "不及格";
+        }
 
-            var sum2 = 0;
-            var n = 1;
-            while (sum2 < 10) {
-                sum2 += n;
-                n++;
-            }
-            output4 += "while 循环累加结果: " + sum2 + "\n";
-            console.log("while 循环累加:", sum2);
-            document.getElementById("output-control").textContent = output4;
+        var msg4 = "成绩: " + score + "，等级: " + level + "<br>";
 
-            // 5. 函数
-            var output5 = "";
-            function add(a, b) {
-                return a + b;
-            }
-            var r1 = add(3, 4);
-            output5 += "函数声明 add(3,4) = " + r1 + "\n";
-            console.log("函数声明:", r1);
+        var factorial = 1;
+        for (var i = 1; i <= 5; i++) {
+            factorial = factorial * i;
+        }
+        msg4 += "for循环: 1到5的阶乘 = " + factorial + "<br>";
 
-            var multiply = function(a, b) {
-                return a * b;
-            };
-            var r2 = multiply(5, 6);
-            output5 += "函数表达式 multiply(5,6) = " + r2 + "\n";
-            console.log("函数表达式:", r2);
+        var count = 1;
+        var total = 0;
+        while (count <= 5) {
+            total = total + count;
+            count++;
+        }
+        msg4 += "while循环: 1到5的累加和 = " + total;
+        document.getElementById("r4").innerHTML = msg4;
+        console.log("流程控制:", level, factorial, total);
 
-            var divide = (a, b) => a / b;
-            var r3 = divide(20, 4);
-            output5 += "箭头函数 divide(20,4) = " + r3 + "\n";
-            console.log("箭头函数:", r3);
+        // ====================
+        // 5. 函数
+        // ====================
+        function add(x, y) {
+            return x + y;
+        }
 
-            function operate(a, b, callback) {
-                return callback(a, b);
-            }
-            var r4 = operate(10, 3, function(x, y) {
-                return x - y;
-            });
-            output5 += "回调函数 operate(10,3,减法) = " + r4 + "\n";
-            console.log("回调函数:", r4);
-            document.getElementById("output-functions").textContent = output5;
-        })();
+        var multiply = function(x, y) {
+            return x * y;
+        };
+
+        var divide = function(x, y) {
+            return x / y;
+        };
+
+        var msg5 = "";
+        msg5 += "add(4, 5) = " + add(4, 5) + "<br>";
+        msg5 += "multiply(3, 6) = " + multiply(3, 6) + "<br>";
+        msg5 += "divide(10, 2) = " + divide(10, 2);
+        document.getElementById("r5").innerHTML = msg5;
+        console.log("函数:", add(4, 5), multiply(3, 6), divide(10, 2));
     </script>
 </body>
 </html>
