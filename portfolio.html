@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的作品集 - 稿仓</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo-link">
+                <h1 class="logo">
+                    <span class="logo-mark">稿</span>
+                    稿仓
+                </h1>
+            </a>
+            <nav class="nav">
+                <a href="edit.html" class="nav-link">录入作品</a>
+                <a href="portfolio.html" class="nav-link active">我的作品集</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="control-panel">
+                <h2>作品集预览</h2>
+                <div class="controls">
+                    <div class="control-group">
+                        <label>选择模板</label>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <button class="template-btn active" data-template="minimal">极简文字风</button>
+                            <button class="template-btn" data-template="card">融媒体卡片风</button>
+                            <button class="template-btn" data-template="timeline">时间轴履历风</button>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="filterCategory">筛选类型</label>
+                        <select id="filterCategory">
+                            <option value="all">全部</option>
+                            <option value="text">文字报道</option>
+                            <option value="data">数据新闻</option>
+                            <option value="photo">摄影组图</option>
+                            <option value="video">视频作品</option>
+                            <option value="h5">H5 / 交互</option>
+                            <option value="poster">海报设计</option>
+                            <option value="tweet">推文制作</option>
+                            <option value="comment">新闻评论</option>
+                            <option value="other">其他</option>
+                        </select>
+                    </div>
+                    <div class="control-group" style="margin-left:auto;">
+                        <button id="exportBtn" class="btn btn-primary">导出作品集</button>
+                        <button id="demoBtn" class="btn btn-secondary">加载示例数据</button>
+                        <button id="clearBtn" class="btn btn-danger">清空所有作品</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="portfolioArea" class="portfolio-area template-minimal">
+                <div class="portfolio-header">
+                    <h1 class="portfolio-title">我的作品集</h1>
+                    <p class="portfolio-subtitle">新闻传播学专业 · 求职作品集</p>
+                </div>
+
+                <div id="portfolioContent" class="portfolio-content">
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                        </div>
+                        <h4>还没有作品</h4>
+                        <p>录入第一件作品，或加载示例数据查看不同模板的效果。</p>
+                        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+                            <a href="edit.html" class="btn btn-primary">去录入作品</a>
+                            <button id="demoBtn2" class="btn btn-secondary">加载示例数据</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="about-section">
+                <h3>关于我</h3>
+                <textarea id="aboutText" class="about-text" rows="3" placeholder="在这里写一段个人简介，例如：新闻学专业大四学生，擅长深度报道与数据新闻，曾获XX新闻奖……"></textarea>
+                <button id="saveAboutBtn" class="btn btn-small" style="margin-top:12px;">保存简介</button>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>稿仓 Gaocang · 新闻学 Web 前端技术课程实践作品</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        document.querySelectorAll('.template-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const tpl = this.dataset.template;
+                const area = document.getElementById('portfolioArea');
+                area.className = 'portfolio-area template-' + tpl;
+                renderPortfolio();
+            });
+        });
+
+        document.getElementById('filterCategory').addEventListener('change', function() {
+            renderPortfolio(this.value);
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', function() {
+            if (confirm('确定要清空所有作品吗？此操作不可恢复。')) {
+                clearAllWorks();
+            }
+        });
+
+        function loadDemo() {
+            const demoData = [
+                {
+                    id: Date.now() + 1,
+                    title: '城市边缘的搬迁者——城中村改造调查报道',
+                    category: 'text',
+                    link: 'https://example.com/article1',
+                    cover: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400',
+                    description: '本作品为深度报道课程期末作业，历时两周走访XX城中村，采访住户12人、街道办工作人员3人，呈现城市更新中个体命运的复杂性。作品获评课程优秀作业。',
+                    date: '2025-12'
+                },
+                {
+                    id: Date.now() + 2,
+                    title: '近十年大学生就业流向数据可视化',
+                    category: 'data',
+                    link: 'https://example.com/data1',
+                    cover: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400',
+                    description: '使用Python爬虫抓取教育部公开数据，结合ECharts制作交互式数据新闻页面。从地域、行业、薪资三个维度呈现大学生就业趋势变化。',
+                    date: '2026-03'
+                },
+                {
+                    id: Date.now() + 3,
+                    title: '早市烟火：城市清晨的另一种叙事',
+                    category: 'photo',
+                    link: 'https://example.com/photo1',
+                    cover: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400',
+                    description: '摄影课程作业，连续一周清晨5点前往本地早市拍摄，记录摊贩与顾客之间的日常互动。共拍摄300余张，精选12张组成专题组图。',
+                    date: '2025-09'
+                },
+                {
+                    id: Date.now() + 4,
+                    title: '短视频：一位非遗传承人的坚守与困惑',
+                    category: 'video',
+                    link: 'https://www.bilibili.com/video/example',
+                    cover: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400',
+                    description: '广播电视学课程小组作业，担任导演与剪辑。作品讲述本地皮影戏传承人的故事，获学院微视频大赛三等奖，全网播放量2.3万。',
+                    date: '2026-01'
+                }
+            ];
+            localStorage.setItem('gaocang_works', JSON.stringify(demoData));
+            renderPortfolio();
+            if (typeof showToast === 'function') {
+                showToast('示例数据已加载，可切换模板查看效果', 'success');
+            } else {
+                alert('示例数据已加载');
+            }
+        }
+
+        document.getElementById('demoBtn').addEventListener('click', loadDemo);
+        document.getElementById('demoBtn2').addEventListener('click', loadDemo);
+        document.getElementById('exportBtn').addEventListener('click', exportPortfolio);
+
+        const aboutText = document.getElementById('aboutText');
+        const savedAbout = localStorage.getItem('gaocang_about');
+        if (savedAbout) aboutText.value = savedAbout;
+
+        document.getElementById('saveAboutBtn').addEventListener('click', function() {
+            localStorage.setItem('gaocang_about', aboutText.value);
+            if (typeof showToast === 'function') {
+                showToast('个人简介已保存', 'success');
+            } else {
+                alert('个人简介已保存');
+            }
+        });
+
+        renderPortfolio();
+    </script>
+</body>
+</html>
